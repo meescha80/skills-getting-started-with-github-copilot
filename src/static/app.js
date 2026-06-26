@@ -20,12 +20,14 @@ document.addEventListener("DOMContentLoaded", () => {
         activityCard.className = "activity-card";
 
         const spotsLeft = details.max_participants - details.participants.length;
+        const availabilityText = spotsLeft > 0 ? `${spotsLeft} spots left` : "No spots left";
+        const availabilityClass = spotsLeft > 0 ? "availability" : "availability full";
 
         activityCard.innerHTML = `
           <h4>${name}</h4>
           <p class="description">${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
-          <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+          <p class="${availabilityClass}"><strong>Availability:</strong> ${availabilityText}</p>
           <div class="participants-container">
             <strong>Participants</strong>
             <ul class="participants-list">
@@ -69,6 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const option = document.createElement("option");
         option.value = name;
         option.textContent = name;
+        if (spotsLeft <= 0) {
+          option.className = "full";
+        }
         activitySelect.appendChild(option);
       });
     } catch (error) {

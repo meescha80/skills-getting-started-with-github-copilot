@@ -117,6 +117,14 @@ section h3 {
   background-color: rgba(198, 40, 40, 0.08);
 }
 
+.availability {
+  margin: 8px 0 0;
+}
+
+.availability.full {
+  color: #c62828;
+}
+
 /* subtle faded text for empty list */
 .participants-list:empty::before {
   content: "No participants yet";
@@ -150,6 +158,11 @@ section h3 {
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 16px;
+}
+
+/* style full activities in the dropdown */
+.form-group select option.full {
+  color: #c62828;
 }
 
 button {
