@@ -61,6 +61,21 @@ def test_signup_duplicate_returns_400():
     assert resp2.status_code == 400
 
 
+def test_signup_fails_when_activity_is_full():
+    activity = "Chess Club"
+
+    # Fill the activity to capacity
+    app_module.activities[activity]["participants"] = [f"user{i}@example.com" for i in range(app_module.activities[activity]["max_participants"])]
+    email = "overflow@example.com"
+
+    # Act
+    resp = client.post(f"/activities/{activity}/signup?email={email}")
+
+    # Assert
+    assert resp.status_code == 400
+    assert resp.json()["detail"] == "Activity is full"
+
+
 def test_unregister_participant_removes_entry():
     activity = "Gym Class"
     email = "removable@example.com"
